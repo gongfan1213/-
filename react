@@ -1,0 +1,24 @@
+jsx事件绑定
+event参数传递：
+btnClick(){console.log("btnClock",event,this);}
+btnreact做了一层包装，拿到event对象，《button onclick={this.handlerClick.bind(rthis)}>按钮</button>
+btnClick(event){
+  console.log("btnClick");}
+
+第二种方法没有绑定this,
+onClick={()=>this.btnClick()}>
+第三章规则存在小小漏洞，
+《button onClick={(e)=>this.btnClick(event)}>按钮</button>
+btnClick(even5t,name,age){
+  console.log('btnclClicl,,event',this,name,age);
+  }
+按钮3需要传递别的东西给i
+btnClick(evenet,name,age){
+  this.btnClick.bind(this,"kobe",30);}
+name,age
+当前默认的veent的参数放在了最后的，functin foo(name,age,event){
+  }
+const bar=foo,.bind("a","kobe",30);
+
+bar("event");
+放在第三个参数里面，真正执行放在第三个参数里面
