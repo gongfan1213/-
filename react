@@ -8,3 +8,5 @@ return (
 <li key={item.id} className={currenetIndex===index?'active':''}
 onClick={()=>this.item.Click()}>
 
+itemClick(inex_{
+console.log('item Click',index
