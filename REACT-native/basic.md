@@ -168,3 +168,4 @@ Touchable,scrollView滚动视图组件
 sectionList分组列表组件
 flatlist高性能列表组件
 animated动画组件
+ActibiyuIndicator组件，用于显示一个加载至四七，通常在应用程序加载数据或者执行某个操作的时候使用，
