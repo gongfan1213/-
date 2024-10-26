@@ -84,18 +84,70 @@ export default class FlexDirection extends Component {
         return (
             <view>
             <View>
-            <Text >flexDirection:'column'(默认)</Text>
-            <View>
+            <Text style={[styles.h3]}>flexDirection:'column'(默认)</Text>
+            <View style = {[styles.container]}>
             //当作容器来使用的
-            <Text>刘备</Text>
-            <Text>关于</Text>
-            <Text>张飞</Text>
+                    <Text style = {[styles.itemBase]}>刘备</Text>
+                    <Text style = {[styles.itemBase]}>关于</Text>
+                    <Text style = {[styles.itemBase]}> 张飞</Text>
+            </View>
+             <View style = {[styles.container,styles.flexColumnReverse]}>
+            //当作容器来使用的
+                    <Text style = {[styles.itemBase]}>刘备</Text>
+                    <Text style = {[styles.itemBase]}>关于</Text>
+                    <Text style = {[styles.itemBase]}> 张飞</Text>
             </View>
             </View>
             <Text > textInComponent</Text>
+            <View styke={[]></View>}
+            //scrollview可以滚动来使用的
             </view>
         )
     }
 }
 const styles = StyleSheet.create({})
 //验证主轴方向
+const styles = StyleSheet.create( {
+    container: {
+        height:150,
+        margin:10,
+        borderWidth:1,
+        borderColor:'#dddd'
+
+    },
+    h3: {
+        fontSize:24,
+        marginHorizontal:10,
+
+    },
+    h2:{
+
+    },
+    itemBase: {
+        height:
+        borderWidth:1;
+        borderColor:'red';
+        backgroudnColor:'#dfd';
+        padding:4;
+        textAlign:'center'
+    },
+    flexColumn: {
+        flexDirection:'column'
+    },
+    flexColumnReverse: {
+        flexDirection: 'idrx'
+    },
+    flexRow: {
+        flexDirection:'',
+    },
+    flexRowReverse: {
+        flexDirection:'row-reverse'
+    }
+})
+import Index from './src_02_FlexBox'
+export default class App extends Component }
+render() {
+    return (
+        <Index/>
+    )
+}
