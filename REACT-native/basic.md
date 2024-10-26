@@ -151,3 +151,20 @@ render() {
         <Index/>
     )
 }
+//rn当中的核心的组件是对原生组件的封装
+原生组件：Android或者ios内的组件
+核心组件;Rn当中最常用的，来在react-native当中的组件
+react-native image->imageView
+UIImageView
+image组件,imageView,UIImageView
+TextView->text->UITextView
+ActivityIndicator加载指示器组件
+View视图组件Text文本组件Alert警告框组件,Button按钮组件Switch开关组件,StatusBar状态栏组件
+核心组件
+image图片组件
+textInput输入框组件
+Touchable触碰组件一共三个
+Touchable,scrollView滚动视图组件
+sectionList分组列表组件
+flatlist高性能列表组件
+animated动画组件
