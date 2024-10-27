@@ -187,4 +187,58 @@ export default {
 - **`renderTracked`**: Vue 3中的调试钩子，用于在响应式依赖被追踪时触发。
 - **`renderTriggered`**: Vue 3中的调试钩子，用于在响应式依赖被触发时触发。
 - **`serverPrefetch`**: 用于服务器端渲染的钩子，允许在组件实例化之前预取数据。
+# vue数据响应式原理
+v-bind: v-on: value绑定，绑定对应的事件监听
+function set(target:Array<any> | Object,key:any,value:any):any {
+    if(Array.isArray(target)&&isValidArrayIndex(key)) {
+        target.length = Math.max(target.length ,key);
+        target.splice(key,1,val)
+        return val 
+    }
+    //对象如果是该属性原来已经存在于对象当中，则直接更新
+    if(key in target &&!(key in Object.prototype)){
+        target[key]=value;
+        return val;
+    }
+    //vue给响应式对象比如data当中定义了对象，都添加了一个_ob_属性
+    //如果一个对象都有这个_ob_的属性，那么就说明这个对象是响应式对象，修改对象已有的属性的时候就会触发页面的渲染
+    //非data里的定义的就不是响应式对象
+    const ob = (target:any)._ob_ 
+    if(target._isVue || (ob && ob.vmCount)) {
+        process.env.NODE_ENV!== 'production' && warn(
+            `Avoid adding reactive properties to a Vue instance or its root $data ` +
+            `at runtime - declare it upfront in the data option.`
+        )
+        return val;
 
+    }
+    //是响应式对象，进行依赖的收集
+    defineReactive(ob.value,key,val)
+    //触发更新视图
+    ob.dep.notify()
+    return val;
+
+
+}
+数据驱动视图，将视图和数据进行分离，通过数据的变化来驱动视图的更新
+在vue当中，数据通常是存储在组件的data属性当中，当数据发生变化的时候，vue会自动检测到这些变化，并且触发响应的更新函数来更新视图。
+观察者模式实现的
+vue会对data属性当中每一个属性创建一个观察者对象，当属性发生变化的时候，会通知观察者对象，观察者对象会触发更新函数来更新视图。
+在更新视图的时候，vue会使用虚拟dom技术来提高性能，虚拟dom是一个轻量级的javascript对象，表示实际的dom结构，当需要更新视图的时候，vue会比较虚拟dom和实际的dom结构，并且只更新发生变化的部分，从而提高性能
+数据驱动视图的机制使得开发者可以专注于业务的逻辑的开发，不需要过多关注数据和视图的手动同步，
+Object.defineProperty允许你定义或者修改对象上的一个属性，并且可以指定该属性的访问器方法,getter和setter当属性被读取或者设置的时候，响应的getter和setter就会被调用
+在vue当中，模板会被编译成为渲染函数，也就是我们响应式当中的副作用函数，数据变化的时候，就会重新执行依赖相关的渲染函数，实现视图的更新
+1.vue2的响应式系统
+在vue2当中，响应式系统基于Object.defineProperty来实现的，对于每一个响应式数据对象
+vue都会递归遍历该对象的所有属性，并且使用Object.defineProperty来定义这些属性的getter和setter，当属性被访问或者修改的时候，就会触发对应的getter和setter，从而实现数据的响应式，这些方法内部会记录依赖关系，并且在数据变化的时候通知观察者更新视图
+数据观测：
+当vue实例创建的时候，他会遍历data对象的所有的属性，并且使用Obejct.defineProperty将每个属性转换成为响应式的这个过程是由Observer来完成的
+依赖收集：
+当模板渲染或者计算属性计算的时候，vue会追踪那些数据被访问了，这通知Dep类和Watcher类来完成，Watcher会在读取数据的时候自身添加到数据的依赖列表当中
+数据变更通知：当数据修改的时候，对应的watcher会收到通知并触发视图的更新
+vue3的响应式原理：
+vue3当中，响应式数据不再是直接修改原生对象，而是通过reactive函数包装后的代理对象，这个代理对象使用proxy创建的，可以拦截所有的读取和写入的操作
+读取操作的追踪：当访问响应式数据的属性的，时候，rpxoy的get方法会被调用，vue的响应式系统会记录下这次读取操作，并且将其于当前的副作用函数effect关联起来
+写入操作的追踪：当修改响应式数据的属性的时候，proxy的set方法会被调用,vue的响应式系统会检测那些副作用函数依赖这个属性，并标记他们需要更新
+触发更新：
+当执行到被标记为需要更新的副作用函数的时候，vue的调度器会确保他们重新执行，从而触发视图的更新，这个过程通常是异步的，来提高性能
