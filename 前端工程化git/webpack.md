@@ -164,6 +164,69 @@ webpack会按照 use 定义的顺序从前往后执行Pitch Loader 从后往前�
 创建出webpack实例 并运行laoder
 获取loader执行结果 对比、分析判断是否符合预期
 判断执行过程中是否出错
+# 8.如何编写Plugin
+上面我们已经讲完了如何编写loader，接下来我们还是按照分析plugin特性来讲解如何开发plugin，一起来看看吧！由于plugin比loader复杂不少，这里我们需要一些前置知识来作为支撑！
+我们都知道Plugin是通过监听webpack构建过程中发布的hooks来实施对应的操作从而影响更改构建逻辑以及生成的产物，而在这个过程中compiler和compilation可以说是最核心的两个对象了，其中compiler可以暴露了整个构建流程的200+个hooks，而compilation则暴露了更细粒度的hooks。
+compiler对象是一个全局单例，代表了webpack从开启到关闭的整个生命周期，负责启动编译和监听文件，而compilation是每次构建过程的上下文对象，包含当次构建所需要的信息
+
+每次热更新和重新编译都会创建一个新的compilation对象，compilation对象只代表当次编译
+
+我们都知道插件是通过监听webpack构建过程中发布的hooks从而在特定阶段去执行特定功能来达到改变构建逻辑以及产物的目的，而这些都离不开tapable （一个专门用于处理各种发布订阅的库 有同步异步、熔断、循环、瀑布流等钩子），关于了解tapable的使用，这里推荐这篇文章：Webpack tapable 使用研究 - 掘金 (juejin.cn)。
+讲完plugin的前置知识，接下来就让我们正式开始学习如何开发插件
+
+
+插件是通过监听webpack发布的hooks来工作的
+
+根据这个特性，我们的plugin一定是一个函数或者一个包含apply（） 的对象，这样才可以监听compiler 对象
+
+
+
+传递给插件的compiler  和compilation 都是同一个引用
+
+根据此特性，我们知道我们的插件是会影响到其他插件的，所以我们在编写插件的时候应该分析会对其他插件造成啥影响
+
+
+
+基于tapable来完成对hooks的复杂的订阅以及响应
+
+编译过程的特定节点会分发特定钩子，插件可以通过这些钩子来执行对应的操作
+通过 tapable的回调机制以参数形式传递上下文信息
+可以通过上下文的众多接口来影响构建流程
+
+
+
+监听一些具有特定意义的hook来影响构建
+
+compiler.hooks.compilation:webpack刚启动完并创建compilation对象后触发
+compiler.hooks.make:webpack开始构建时触发
+compiler.hooks.done:webpack 完成编译时触发，此时可以通过stats对象得知编译过程中的各种信息
+
+
+
+善于使用开发工具
+
+使用schema-utils用于校验参数（关于schema-utils的使用方法读者可以自行查阅）
+
+
+
+正确处理插件日志信息以及插件信息
+
+使用 stats汇总插件的统计数据
+使用 ProgressPlugin插件的 reportProgress接口上报执行进度
+通过 compilation.getLogger获取分级日志管理器
+使用 compilation.errors/warining处理异常信息（eslint-webpack-plugin的做法）
+
+
+
+测试插件
+
+通过分析compilation.error/warn 数组来判断webpack是否运行成功
+分析构建产物判断插件功能是否符合预期
+
+
+
+以上便是如何编写plugin所需的知识和常规流程，建议可以阅读一些插件例如eslint-webpack-plugin / DefinePlugin 等插件的源码来更深入地学习插件开发的知识和流程
+
 
 
 
