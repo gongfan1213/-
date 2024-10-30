@@ -227,6 +227,27 @@ compiler.hooks.done:webpack 完成编译时触发，此时可以通过stats对�
 
 以上便是如何编写plugin所需的知识和常规流程，建议可以阅读一些插件例如eslint-webpack-plugin / DefinePlugin 等插件的源码来更深入地学习插件开发的知识和流程
 
+# 9.什么是文件指纹？文件指纹有什么作用？怎么用？
+概念：文件指纹是指文件打包后的一连串后缀
+作用：
+
+版本管理：  在发布版本时，通过文件指纹来区分 修改的文件 和 未修改的文件。
+使用缓存：  浏览器通过文件指纹是否改变来决定使用缓存文件还是请求新文件。
+
+种类：
+
+Hash：和整个项目的构建相关，只要项目有修改（compilation实例改变），Hash就会更新
+ Contenthash：和文件的内容有关，只有内容发生改变时才会修改
+ Chunkhash：和webpack构架的chunk有关 不同的entry会构建出不同的chunk （不同 ChunkHash之间的变化互不影响）
+
+如何使用：
+
+JS文件：使用Chunkhash 
+CSS文件：使用Contenthash 
+图片等静态资源： 使用hash 
+
+
+生产环境的output为了区分版本变动，通过Contenthash来达到清理缓存及时更新的效果，而开发环境中为了加快构建效率，一般不引入Contenthash
 
 
 
