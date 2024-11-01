@@ -248,6 +248,13 @@ CSS文件：使用Contenthash
 
 
 生产环境的output为了区分版本变动，通过Contenthash来达到清理缓存及时更新的效果，而开发环境中为了加快构建效率，一般不引入Contenthash
+# 10.Babel的原理
+代码转译成为我们想要的目标代码，并且对目标环境不支持的api自动polyfill,而babel实现这些功能的流程是解析(parse)转换transform生产generator接下来我们就看看每一个流程都做了什么工作呢
+解析：根据代码生成对应的ast结构
+进行代码分析，将代码分割成token流，语法单元数组，再根据token流生成对应的ast
+转换：遍历ast节点生成新的ast节点
+生成：根据新的ast生成对应的目标代码
+
 
 
 
