@@ -285,4 +285,23 @@ devtool配置项和 SourceMapDevToolPlugin不能同时使用，因为devtool选�
 
 避免在生产中使用 inline- 和 eval- 因为它们会增加 bundle 体积大小 并且降低整体性能
 
+# HMR（热更新）的原理
+这个可以说是webpack的最高频考点之一了，同时也是webpack的难点，也是webpack的核心功能之一！接下来我将带大家先学习如何使用HMR再逐步分析HMR的原理。
+如何开启HMR：
+通过设置devServer: {hot: true} 开启 开启后便可以在发生改变后局部刷新改变的部分
+原理：
+
+使用 webpack-dev-server（WDS） 托管静态资源 同时以Runtime方式注入HMR客户端代码
+浏览器加载页面后 与WDS建立WebSocket连接
+webpack监听到文件变化后 增量构建发生变更的模块 并通过WebSocket发送hash事件
+浏览器接收到 hash事件后 请求 manifest资源文件 确认增量变更范围
+浏览器加载发生变更的增量模块
+webpack运行时触发变更模块的module.hot.accept回调 执行代码变更逻辑
+done：构建完成，更新变化
+
+总结就是webpack将静态资源托管在 WDS 上，而 WDS 又和浏览器通过 webSocket 建立联系，而当webpack监听到文件变化时，就会向浏览器推送更新并携带新的hash 与之前的hash进行对比，浏览器接收到hash事件后变化加载变更的增量模块并触发变更模块的 module.hot.accept回调执行变更逻辑
+
+![alt text](image.png)
+
+
 
