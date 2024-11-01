@@ -73,18 +73,47 @@ vue3: v-if>v-for
 vue2:v-for>v-if 
 vue3:v-if>v-for 
 # 3.组件的生命周期以及每个生命周期应该做什么事情？
-beforeCreate组件实例被创建之初
-created:组件实例已经被创建
+vue当中的实例，再创建->销毁
+1.创建2.初始化数据3编译template4.挂载dom5.渲染6.更新渲染7.卸载
+beforeCreate组件实例被创建之初,初始化插件
+created:组件实例已经被创建，异步请求获取，dom并没有完成
 beforeMount:组件挂载之前
-mounted:组件挂载之后
+mounted:组件挂载之后，异步请求获取，render,dom更新，页面变化
 beforeUpdate:组件的数据发生变化，在整正更新之前
 updated：数据更新以后
 beforeDestory:组件销毁之前
 Destoryed:组件销毁之后
 activated：keep-alive组件被激活的时候
 deactiviated:keep-alive停止使用
-errorCaptured:错误监听,vue.config.errorHandler
+errorCaptured:错误监听,捕获实例的错误，vue.config.errorHandler
 renderTracked,renderTriggered,serverPrefetch
+
+```js
+new Vue() const vm = new Vue()//创建空的实例对象
+init events lifecycle
+//before create
+init reativity data injection methods
+//created
+option
+-yes
+-false el option vm.$mount(el)
+template 
+yes compile
+no-el outHTML as template
+//beforeMount这个时候，模板已经编译好了，但是页面没有更新的
+vm.$el replace $el
+//mounted:再dom上进行渲染完成的
+VDOM render patch
+//beforeUpdate
+VDOM re-render patch
+//updated
+//beforeDestroy
+data methods filter directive可用的
+//destoryed
+
+
+```
+
 在Vue.js开发中，处理错误和调试渲染过程是非常重要的。Vue.js提供了多种钩子和配置项来帮助开发者捕获错误、监听渲染过程以及处理服务端预取。以下是对`errorCaptured`、`vue.config.errorHandler`、`renderTracked`、`renderTriggered`和`serverPrefetch`的详细介绍：
 
 ### `errorCaptured` (Vue 2 和 Vue 3)
@@ -242,3 +271,19 @@ vue3当中，响应式数据不再是直接修改原生对象，而是通过reac
 写入操作的追踪：当修改响应式数据的属性的时候，proxy的set方法会被调用,vue的响应式系统会检测那些副作用函数依赖这个属性，并标记他们需要更新
 触发更新：
 当执行到被标记为需要更新的副作用函数的时候，vue的调度器会确保他们重新执行，从而触发视图的更新，这个过程通常是异步的，来提高性能
+# vue2和vue3的区别
+1.重写了响应式Object.dfineProperty->proxy
+2.composition api函数式编程 hooks,vueuse
+3.VDOM diff双端比较-》最长递增子序列
+4.flow->ts
+5.tree shaking
+6.template compiler
+# ssr
+csr:client side render
+ ssr: server side render
+ html是包含所有的dom节点的 div id="app"
+
+ 1.seo
+ 2.白屏事件更短 html,dom,cssom
+
+
