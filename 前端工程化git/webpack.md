@@ -303,5 +303,90 @@ done：构建完成，更新变化
 
 ![alt text](image.png)
 
+# tree shaking原理
+什么是 Tree shaking？
+Tree-Shaking 是一种基于 ES Module 规范的 Dead Code Elimination 技术，它会在运行过程中静态分析模块之间的导入导出，确定 ESM 模块中哪些导出值未曾其它模块使用，并将其删除，以此实现打包产物的优化。
+使用 Tree shaking
+使用 Tree shaking的三个必要条件
 
+
+使用ESM规范编写模块代码
+
+
+配置 optimization.usedExports为 true 启动标记功能
+
+
+启动代码优化功能 可以通过如下方法实现
+
+配置 mode = production
+配置 optimization.minimize = true
+提供 optimization.minimizer数组
+
+
+
+
+对于使用了babel-loader loader或者根据对代码进行转译的时候，注意应该关闭对于导入/导出语句的转译，因为这会影响到后续的 tree shaking 比如应该将 babel-loader 的 babel-preset-env的modules配置为false
+
+必要条件：
+所有导入导出语句只能在模块顶层 且导入导出的模块名必须为字符串常量 不能动态导入的（ESM模块之间的依赖关系是高度确定的 与运行状态无关 编译工具只需要对ESM模块做静态分析就可以从代码字面量中推断出哪些模块值没被使用）
+
+# Tree shaking的原理
+Tree shaking的工作流程可以分为
+1.标记哪些导出值没有被使用； 2. 使用Terser将这些没用到的导出语句删除
+### 标记的流程如下：
+
+make阶段：收集模块导出变量并记录到模块依赖关系图中
+seal阶段：遍历模块依赖关系图并标记那些导出变量有没有被使用
+构建阶段：利用Terser将没有被用到的导出语句删除
+
+开发中如何利用Tree shaking？
+
+避免无作用的重复赋值
+使用 #pure标记函数无副作用（这种做法在开源项目的源码中经常出现，如pinia、reactive....等）
+禁止转译 导入/导出语句（使用了babel-loader需要将 babel-preset-env的modules配置为false ）
+使用支持 Tree shaking的包
+优化导出值的粒度
+```js
+//正确做法
+const a = 'a';
+const b = 'b';
+export {
+a,
+b
+}
+//错误做法
+export default {
+a: 'a',
+b: 'b'
+}
+```
+# 如何用webpack来优化项目的性能
+说到优化，我们应该想到可以分为开发环境和生产环境的不同优化。
+
+开发环境：开发环境我们需要的是更快的构建速度、模块热替换、更加友好的Source map
+
+
+通过cache： { type: 'systemfile'}  开启缓存构建可以加快二次构建的效率
+
+
+通过模块热替换可以做到局部更新变化，提高开发效率
+
+
+根据设置 devtool： cheap-eval-source-map 在保证构建效率的同时又能进行代码调试
+
+
+使用Thread-loader以多进程的方式运行资源加载逻辑
+
+
+通过 stats 来分析性能做优化
+
+
+
+生产环境：生产环境我们需要的是更小的体积，更稳定又快的性能
+
+压缩代码：使用UglifyJsPlugin和ParallelUglifyPlugin来压缩代码 利用cssnano(css-loader? minimize)来压缩css
+利用CDN：可以使用CDN来加快对静态资源的访问，提高用户的使用体验
+Tree Shaking: 删除没用到的代码
+提取公共第三方库： 使用SplitChunksPlugin插件来进行公共模块抽取
+使用TerserWebpackPlugin多进程执行代码压缩、uglify 功能
 
