@@ -270,5 +270,19 @@ watchOptions: {
 
 ```
 
+# 什么是Source map？如何使用
+
+source map是将编译打包后的代码映射回源码
+可以通过devtool配置项来设置，还可以通过SourceMapDevToolPlugin实现更加精细粒度的控制
+
+devtool配置项和 SourceMapDevToolPlugin不能同时使用，因为devtool选项已经内置了这些插件，如果同时使用相当于应用了两次插件
+
+这么多的选择，那么我们应该如何使用呢，根据我的实践，我觉得比较好的设置应该是下面这样
+
+开发环境：cheap-eval-source-map，生产这种source map速度最快，并且由于开发环境下没有代码压缩，所以不会影响断点调试
+生产环境：hidden-source-map，由于进行了代码压缩，所以并不会占用多大的体积
+
+
+避免在生产中使用 inline- 和 eval- 因为它们会增加 bundle 体积大小 并且降低整体性能
 
 
