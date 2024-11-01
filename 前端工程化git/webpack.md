@@ -254,8 +254,21 @@ CSS文件：使用Contenthash
 进行代码分析，将代码分割成token流，语法单元数组，再根据token流生成对应的ast
 转换：遍历ast节点生成新的ast节点
 生成：根据新的ast生成对应的目标代码
+# 11.文件监听的原理
+开启文件监听以后，webpack会轮询访问文件最后的修改事件，当发现文件的修改时间发生变化以后，会先缓存起来等到aggregateTimeout的时候再统一执行
+开启文件监听的方式：可以再构建的时候带上--watch的参数或者设置watch:trye,而watchOptions就可以对监听的细节进行定制
+```js
+watch: true,
+watchOptions: {
+    //不监听的文件或者文件夹 忽略一些大型的不经常变化的文件可以提高构建速度
+    ignored: /node_modules/,
+    //监听到变化会等多少时间再执行
+    aggregateTimeout: 300,
+    //判断文件是否发生变化是通过不断轮询指定文件有没有变化实现的
+    poll: 1000
+}
 
-
+```
 
 
 
