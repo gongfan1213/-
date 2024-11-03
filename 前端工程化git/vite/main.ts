@@ -14,3 +14,4 @@ console.log(import.meta.env.VIPE_APP_FILE)
 //添加importmetaenv
 //interface ImportMetaENV {readonlyVITE_APP_TITLE:STRING更多的环境变量。。}
 //interface ImportMeta {readonly env：ImportMetaEnv}
+

@@ -68,3 +68,16 @@ VITE_SOME_KEY=123
 DB_PASSWORD=foobar
 # 
 //env.development添加一些变量
+# eslint和env
+pnpm create @eslint/config
+```js
+export default[
+    {files:["**/*".{js,mjs,chs,ts,vue}"]},
+    {languageOptions:{globales:globals,browser}},
+    pluginJs.configs.recommended,
+    ..teslint.configs.recmmmended,
+    ...pluginVue.configs["flat/essential"],
+    {files:["**/*.vue"],languageOptions:{parserOptions:{parser:teslint.parser}}}
+
+]
+
