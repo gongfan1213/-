@@ -113,3 +113,4 @@ vite为sass和less改进了@import的解析，保证vite别名也能被使用
 //pnpm install sass less -D
 //<style lang="less" scoped></style>
 
+![alt text](image-1.png)

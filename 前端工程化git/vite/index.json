@@ -3,6 +3,8 @@
         "dev": "vite",
         "lint":"eslint",
         "preview":"vite preview",
+        "test":"jest",
+        "test:coverage":"jest --coverage"
         "build": "vue-tsct -- noEmit && vite build"
 //vite只管编译不管报错的,校验，-b检查
 // 引入ts:pnpm install tyepscript vue-tsc -D
