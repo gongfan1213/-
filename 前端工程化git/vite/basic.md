@@ -114,3 +114,52 @@ vite为sass和less改进了@import的解析，保证vite别名也能被使用
 //<style lang="less" scoped></style>
 
 ![alt text](image-1.png)
+# 封装请求
+```js
+import axios from 'axios'
+axios.defaults.baseURL='api/'
+axios.defaults.headers.post['content-type'] = 'application/json'
+axios.defaults.timeout=3000 
+axios.interceptors.request.use((config)=> {
+    const token : string |null = window.sessionStroage.getItem("token")
+    return config;
+    if(token) {
+        config.headers.Authorization = token; 
+        (config.headers = config.headers|| {}).token  = token;
+    }
+    return config;
+},(error) => {
+    throw error;
+}
+
+)
+axios.interceptors.response.use(()=>{
+    return res.data
+})
+//src/api/autho.ts
+export function login(loginParams:LoginParams) {
+    return http.post ("/login",loginParams)
+}
+export function getCurrentUser() {
+    return http.get("/currentUser")
+}
+export interface Response {
+    code:number
+    data:any 
+
+}
+export interface LoginParams {
+    username:string,
+    password:string 
+
+}
+import {Login,getCurrentUser,type LoginParams} from "./api/auth"
+const loginParams:LoginParams= {username:"yk",password:"123456"}
+login(loginParams).then((result)=>{
+    const token:any = result.data 
+    window.sessionStorage.setItem ("token",token)
+    getCurrentUser().then((result)=> {
+        console.log(result.data)
+    })
+})
+```
