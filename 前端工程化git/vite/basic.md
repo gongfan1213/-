@@ -95,3 +95,9 @@ pnpm install mrm -D
 npx mrm lint-staged
 commitlint.config.js
 
+# 前端mockapi
+vite-plugin-mock提供的本地和生产模拟的服务
+安装插件
+pnpm add mock.js vite-plugin-mock -D
+
+
