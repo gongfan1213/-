@@ -4,7 +4,8 @@
         "lint":"eslint",
         "preview":"vite preview",
         "test":"jest",
-        "test:coverage":"jest --coverage"
+        "test:coverage":"jest --coverage",
+        "prepare":"husky && husky install"
         "build": "vue-tsct -- noEmit && vite build"
 //vite只管编译不管报错的,校验，-b检查
 // 引入ts:pnpm install tyepscript vue-tsc -D
@@ -29,3 +30,8 @@ keywrod-spacing关键字的空
 comma-style冒号风险
 安装
 pnpm install prettier eslint-plugin-prettier globals @vue/eslint-config-prettier
+
+单元测试
+pnpm install @babel/core @babel/preset-env @babel/preset-tyescript -"debug":true,
+pnpm install @vue/test-utils@next jest-transform-stub jest-environment-jsdom -D 
+npx create 
