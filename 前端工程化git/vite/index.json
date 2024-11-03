@@ -1,9 +1,12 @@
 {
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
-
+        "build": "vue-tsct -- noEmit && vite build"
+//vite只管编译不管报错的,校验，-b检查
+// 引入ts:pnpm install tyepscript vue-tsc -D
     },
+    //pnpm build
+
     "devDependencies" : {
         "vite": "^5.4.0"
     }
