@@ -81,3 +81,17 @@ export default[
 
 ]
 
+# git hooks
+可以在git commit之前检查代码，保证所有提交到版本库当中的代码都是符合规范的，
+可以在git push之前执行单元测试，保证所有的提交的代码经过的单元测试
+husky可以让我们向项目当中添加git hooks他会自动在仓库当中的.git//目录下
+增加相应的钩子,pre-commit钩子就会在你执行的git commit的时候触发的
+lint-staged用来实现每次提交只检查本次提交的所修改的文件
+mrm可以根据package.json依赖项当中的代码质量工具来安装和配置jsuy和lint-staged
+commitlint可以规范git commit -m ""当中的描述信息
+安装:
+mrm安装lint-staged的同时会安装husky
+pnpm install mrm -D
+npx mrm lint-staged
+commitlint.config.js
+
