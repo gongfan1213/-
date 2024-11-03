@@ -100,4 +100,16 @@ vite-plugin-mock提供的本地和生产模拟的服务
 安装插件
 pnpm add mock.js vite-plugin-mock -D
 
+# 样式的处理
+局部样式
+当style标签有了scoped属性的时候，它的css只作用于当前组件的元素
+它使用了data-v-hash的方式来使用css有了它对应的模块标识
+//src/global.css
+#### 外联
+任何以.module.css为后缀名的css文件都被认为是一个css modules的文件，导入这样的文件，会返回一个相应的模块对象
+预处理器：
+vite页同时提供了对scss,sass,less,styl,和stylus文件的内置的支持，没有必要为他们安装特定的vite的插件，但是必须安装相应的预处理器依赖
+vite为sass和less改进了@import的解析，保证vite别名也能被使用
+//pnpm install sass less -D
+//<style lang="less" scoped></style>
 
