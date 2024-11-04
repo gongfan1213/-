@@ -3,19 +3,20 @@
 # 生命周期
 # Hook API
 # Redux
-没有继承性，rn当中的继承只发生在text组件上
-样式名，采用小驼峰的命名
-fontSize VSfont-size
-所有的尺寸都是没有单位的width:100 
-有些特殊的样式名：marginHorizaontal水平外边距和marginVertical垂直外边距
-通过style属性直接声明
-属性值为对象<组件 style = {{样式}}/>
-里面是js对象，两层大括号的
-属性值为数组《组件 style={[{样式1},{样式2}]}
-在style属性当中调用stylesheet声明的样式
-引入:import {StyleSheet,View } from 'react-native'
-声明: const styles=StyleSheet.create({foo:{样式1}   ,bar:{样式2}})
-使用:view style={[styles.foo,styles.bar]}内容</view>
+- 没有继承性，rn当中的继承只发生在text组件上
+- 样式名，采用小驼峰的命名
+- fontSize VSfont-size
+- 所有的尺寸都是没有单位的width:100 
+- 有些特殊的样式名：marginHorizaontal水平外边距和marginVertical垂直外边距
+- 通过style属性直接声明
+- 属性值为对象<组件 style = {{样式}}/>
+- 里面是js对象，两层大括号的
+- 属性值为数组《组件 style={[{样式1},{样式2}]}
+- 在style属性当中调用stylesheet声明的样式
+- 引入:import {StyleSheet,View } from 'react-native'
+- 声明: const styles=StyleSheet.create({foo:{样式1}   ,bar:{样式2}})
+- 使用:view style={[styles.foo,styles.bar]}内容</view>
+```js
 export default class App extends Component {
     render() {
         return (
@@ -151,21 +152,22 @@ render() {
         <Index/>
     )
 }
+```
 //rn当中的核心的组件是对原生组件的封装
-原生组件：Android或者ios内的组件
-核心组件;Rn当中最常用的，来在react-native当中的组件
-react-native image->imageView
-UIImageView
-image组件,imageView,UIImageView
-TextView->text->UITextView
-ActivityIndicator加载指示器组件
-View视图组件Text文本组件Alert警告框组件,Button按钮组件Switch开关组件,StatusBar状态栏组件
-核心组件
-image图片组件
-textInput输入框组件
-Touchable触碰组件一共三个
-Touchable,scrollView滚动视图组件
-sectionList分组列表组件
-flatlist高性能列表组件
-animated动画组件
-ActibiyuIndicator组件，用于显示一个加载至四七，通常在应用程序加载数据或者执行某个操作的时候使用，
+- 原生组件：Android或者ios内的组件
+- 核心组件;Rn当中最常用的，来在react-native当中的组件
+- react-native image->imageView
+- UIImageView
+- image组件,imageView,UIImageView
+- TextView->text->UITextView
+- ActivityIndicator加载指示器组件
+- View视图组件Text文本组件Alert警告框组件,Button按钮组件Switch开关组件,StatusBar状态栏组件
+- 核心组件
+- image图片组件
+- textInput输入框组件
+- Touchable触碰组件一共三个
+- Touchable,scrollView滚动视图组件
+- sectionList分组列表组件
+- flatlist高性能列表组件
+- animated动画组件
+- ActibiyuIndicator组件，用于显示一个加载至四七，通常在应用程序加载数据或者执行某个操作的时候使用，
