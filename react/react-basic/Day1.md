@@ -257,3 +257,73 @@ bar();//指向window
 //上面的是普通的方法没有经过严格模式的
 //类当中的方法默认是在严格模式下的
 ```
+## 组件化-数据依赖
+- 数据再哪里定义？
+- 分为两类？
+- 参与界面更新的数据：当数据变量的时候需要更新组件渲染的内容
+- 不参与界面更新的数据，当数据变量的时候，不需要更新将组件渲染的内容
+- 当我们的数据发生变化的时候，可以调用this.setState来更新数据，并且通知react进行update操作
+- 在进行update的操作的时候，就会重新调用render函数，并且使用最新的数据，来渲染界面
+## 组件化-事件绑定
+- 在类当中直接定义一个函数，并且将这个函数绑定到元素的onClick元素事件上的，当前这个函数的this指向的是谁呢？
+- 默认情况下是undeifned,
+- 我们在绑定函数的时候，可能想要使用当前的对象，比如执行this.setState的函数，就必须拿到当前的对象的this
+- 我们需要在传入的函数的时候，给这个函数直接绑定this
+
+- react 并不是直接渲染成为真实的dom元素，我们所编写的button只是一个语法糖，。它的本质react的element对象，那么在这里发生监听的时候，react在执行的函数的时候并没有绑定this,默认情况下就是一个undefined,
+# 8
+```js
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="app">
+  </div>
+
+  <!-- 添加React的依赖 -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <!-- 开始开发 -->
+  <script type="text/babel">
+    // 封装App组件
+    class App extends React.Component {
+      constructor() {
+        super() // 初始化
+        this.state = {
+          message: "Hello World"
+        }
+      }
+      render() {
+        return (
+          <div>
+            <h2>{ this.state.message }</h2>
+            <button onClick={this.btnClick.bind(this)}>改变文本</button>
+          </div>
+        )
+      }
+
+      btnClick() {
+        // this.state.message = "Hello React"
+        this.setState({
+          message: 'Hello React'
+        })
+
+      }
+    }
+
+    ReactDOM.render(<App />, document.getElementById("app"));
+  </script>
+
+</body>
+
+</html>
+```
