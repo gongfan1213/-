@@ -327,3 +327,141 @@ bar();//指向window
 
 </html>
 ```
+# 9电影列表的展示
+```js
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_案例练习-电影列表</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <!-- 1.引入依赖 -->
+  <!-- 添加React的依赖 -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <!-- 2.编写React代码 -->
+  <script type="text/babel">
+
+    // 创建组件
+    class App extends React.Component {
+      constructor() {
+        super()
+
+        this.state = {
+          message: 'Hello World',
+          movies: ["大话西游", "盗梦空间", "星际穿越", "流浪地球"]
+        }
+      }
+      render() {
+        const liEls = []; 
+        for (let i = 0;i <this.state.movies.length;i++ ) {
+          const movie = this.state.movies[i];
+          const liEl = <li>{movie}</li>
+          liEls.push(liEl)
+
+
+        }
+        //第二种方式的movies数组转换成为了liEls数组
+        // const liEls = this.state.movies.map (item => {
+        //   return <li>{movie}</li>
+
+        // })
+        return (
+          <div>
+            <h2>电影列表</h2>
+            <ul>
+              {
+                this.state.movies.map((item) => {
+                  return <li>{item}</li>
+                })
+              }
+            </ul>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<App />, document.getElementById("app"))
+  </script>
+</body>
+
+</html>
+
+
+```
+# 10-计数器案例
+```js
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02_案例练习-计数器案例</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <!-- 添加React的依赖 -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          counter: 0
+        }
+
+      }
+
+      render() {
+        return (
+          <div>
+            <h2>当前计数: {this.state.counter}</h2>
+            <button onClick={this.increment.bind(this)}>+1</button>
+            <button onClick={this.decrement.bind(this)}>-1</button>
+          </div>
+        )
+      }
+
+      increment() {
+        this.setState({
+          counter: this.state.counter + 1
+        })
+      }
+
+      decrement() {
+        this.setState({
+          counter: this.state.counter - 1
+        })
+      }
+
+
+    }
+
+    ReactDOM.render(<App />, document.getElementById("app"));
+  </script>
+</body>
+
+</html>
+
+
+```
+# 11-如何生成对应的代码片段
+
+- snippet generator
+- 文件-首选项-配置用户代码片段
+- html.json,creatapp
+# 12-jsx语法
