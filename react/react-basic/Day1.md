@@ -465,3 +465,158 @@ bar();//指向window
 - 文件-首选项-配置用户代码片段
 - html.json,creatapp
 # 12-jsx语法
+- 一种Java script的语法扩展，extension，JavaScript XML，
+- 描述ui界面的，可以和JavaScript融合一起使用的 
+- 和vue的模板语法不同的，不需要专门学习模块语法当中的一些指令的 
+- html in js,css in js js in js,all in js
+- vue是写在template当中的，react是直接写在了js当中了
+## 为什么react选择了jsx
+- react认为渲染逻辑本质上和其他的逻辑的ui存在内在的耦合
+- 比如ui需要绑定事件
+- ui当中需要展示数据状态
+- 在某些状态发生改变的时候又需要改变ui
+- html和js->state当中是不可分割的，
+- 密不可分，react没有将标记分离到不同的文件当中，而是将他们组合到了一起，这个地方就是组件component 
+- jsx就是嵌入到javascript当中的一种结构语法
+- jsx当中的标签可以是单表前的，也可以是双标签的
+- jsx的外层包裹一个小括号，jsx可以进行换行书写
+- jsx的顶层只能有一个根元素，在外层包裹一个div元素
+
+# 13-jsx的书写规范
+- jsx结构当中只能有一个根元素的，jsx可以是单标签也可以是双标签的
+# 14-jsx注释的编写方式
+- 注释
+- 单行注释：{/* */}
+- 多行注释：{/* */}
+# 15-jsx当中插入内容
+
+- JSX嵌入变量作为子元素
+- 情况一:当变量是Number、String、Array类型时，可以直接显示
+- 情况二:当变量是null、undefined、Boolean类型时，内容为空
+- √ 如果希望可以显示null、undefined、Boolean，那么需要转成字符串;
+- 转换的方式有很多，比如toString方法、和空字符串拼接，String(变量)等方式
+- 情况三:Object对象类型不能作为子元素(not valid as aReact child)
+# 16
+- jsx嵌入表达式
+- 运算表达式，三元运算符，执行一个函数
+# 17-jsx绑定属性
+# 18- class和style的绑定
+- 绑定class属性，最好使用className 
+- class绑定写法1.字符串的拼接
+- class绑定写法2.将所有的class放到数组当中
+- classnames,npm install
+
+```js
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03_认识jsx的语法</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <!-- 添加React的依赖 -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    // jsx语法 ,只要是开发react项目必须要用babel进行转化的
+    class App extends React.Component {
+      constructor() {
+
+        super();
+
+        this.state = {
+          // 1.在{}中可以正常显示显示的内容
+          name: "why", // String
+          age: 18, // Number
+          names: ["abc", "cba", "nba"], // Array
+
+          // 2.在{}中不能显示(忽略)
+          test1: null, // null
+          test2: undefined, // undefined
+          test3: true, // Boolean
+          flag: true,
+          movies:["流浪地球" ,"流浪地球2","流浪地球3"],
+
+          // 3.对象不能作为jsx的子类
+          friend: {
+            name: "kobe",
+            age: 40
+          },
+          objSTyle : {color:"red",fontS8ize:"30px"}
+        }
+      }
+      render() {
+        const {message,names} = this.state 
+        const className = `abc cba ${isActive ?'active':''}`;
+        const element = <h2>{message}</h2>
+        const {friend} = this.state 
+        const fullName = firstName +"" + lastName
+        const {age} = this.state 
+        const ageText = age
+        const classList = ["abc","cba"]
+        if(isActive) classList.push("active")
+        const liEls = this.state.movies.map(movie => <li>{movie}</li>)
+        return  (
+          <div>
+            //绑定全局的title属性
+
+            <h2 title = {title}>{message}</h2>
+            <h2>{names[0]}</h2>
+            <img src={imgURL}>百度以下
+            <h2 style={objStyle}>{this.state.name}</h2>
+            <h2>{this.state.age}</h2>
+            <h2>{this.state.names}</h2>
+
+            <h2>{this.state.test1 + ""}</h2>
+            <h2>{this.state.test2 + ""}</h2>
+            <h2>{this.state.test3.toString()}</h2>
+
+            <h2>{this.state.flag ? "你好啊": null}</h2>
+            //绑定class属性
+            <h2 class="abc cba">哈哈哈</h2>
+            //绑定class属性，最好使用className
+            <h2 className = {"abc" +"cba"}>哈哈</h2>
+            <h2 className = {classList.join(" ")}>
+              <h2 className={className}>哈哈</h2>
+            <h2 className= {`abc cba ${isActive ?'active':''}`}>
+            //包装类型的对象调用toStrinag方法
+            //Object类型不能作为子元素来显示的
+            <h2>{this.state.friend.name}</h2>
+            <h2>{this.state.friend.age}</h2>
+//Object are not valid as a react child
+//Object类型不能作为子元素进行显示的
+// 插入对应的表达式
+//动态绑定style属性的，最好使用className方法
+
+            <h2 style="color:red">{ageText}</h2>
+            <h2 style ={ {color:"red",fontSize:"14px"}}>呵呵呵</h2>
+            //可以调用方法获取结果
+            <ul>{liEls}</ul>
+            <ul>{this.getMoviesEls()}</ul>
+            <ul>{this.state.movies.map(movie=><li>{movie}</li>)}</ul>
+            {/*<h2>{this.state.friend}</h2>undeifned/null/Boolean这三种在界面上不会显示的*/}
+            </div>
+        )
+
+      }
+      getMoviesEls() {
+        const liEls = this.state.movies.map(movies=><li>{movies}</li>)
+        return liEls
+      }
+    }
+    const element = <h2>Hello World</h2>;
+    ReactDOM.render(element, document.getElementById("app"));
+
+  </script>
+</body>
+
+</html>
+```
+# 19-回顾
