@@ -1,0 +1,36 @@
+### 摘要
+- **历史**：视觉和语言模型的演进，以及向视觉语言模型（VLMs）的融合。
+- **预训练**：双编码器、对比学习、图像 - 文本对。
+- **提示**：零样本学习、提示工程。
+- **应用**：开放词汇感知、3D领域、生成式人工智能（GenAI）。
+- **Vision Models**：教会计算机看东西。关键问题是如何构建有区分力的视觉表征。
+- **Visual representations**：曲线（Nevatia & Binford, 1977）；圆柱体（Brooks & Binford, 1979）；边缘（Canny, 1986）；局部特征（SIFT, Lowe, 1999）。
+- **Visual representations**：低级特征，例如边缘、颜色块；中级特征，例如纹理、形状；高级特征，例如物体部件（Zeiler and Fergus, ECCV, 2014）。
+- **Deep neural network**：将输出与正确答案进行比较以获得误差导数。
+- **Convolutional neural network**：ReLU非线性激活函数；特征归一化；随机失活（Dropout）；数据增强；多GPU训练（来源：链接）。
+- **Deep residual network**：问题：网络越深越难训练。解决方案：残差连接（He et al., 2016）。
+- **Vision Transformer (ViT)**：该架构内置的归纳偏差极少，需要更多数据来学习图像的空间结构。
+- **Language Models**：单词表征（嵌入），应用于情感分析、机器翻译、文本摘要、邮件过滤、聊天机器人等。
+- **Word2vec**：根据上下文预测当前单词；根据当前单词预测上下文单词。
+- **Seq2seq**：自回归；大型神经网络；大型数据集；编码器 - 解码器（Sutskever et al., 2014）。
+- **Improving Language Understanding by Generative Pre-Training**：自动回归训练（规模扩大）。
+- **Language Models are Unsupervised Multitask Learners**：零样本（自动补全）。
+- **Language Models are Few-Shot Learners**：少样本上下文学习。
+- **Chain-of-thought prompting**：标准提示；思维链提示；符号推理；常识推理（超出分布，OOD）。
+- **Zero-shot chain-of-thought prompting**：让我们一步一步思考。
+- **Convergence of Vision and Language Models**：传统视觉模型难以泛化。例如，训练用于识别马的图像分类器无法识别斑马，尽管斑马与马相似，只是有黑白条纹。
+- **Why traditional vision models struggle to generalize?**：传统模型在开放词汇任务中会失败。例如，没有老虎的类别原型，需要重新训练模型。
+- **Early methods**：通过属性描述物体（Farhadi et al., 2009）；通过跨模态转移进行零样本学习（Socher et al., 2013）；学习图像和文本的联合嵌入空间（Ba et al., 2015）。
+- **Today’s methods**：使用大容量模型和网络规模的数据集学习图像和文本的联合嵌入空间（Radford et al., 2021）。
+- **Contrastive learning**：目标是将每个图像与正确标签关联起来；拉近匹配对，推开不匹配对。
+- **Architecture: image encoder**：ResNet50；Transformer编码器（ViT）。
+- **Architecture: text encoder**：嵌入层；Transformer。
+- **Contrastive Language-Image Pre-training (CLIP)**：对比预训练；减少特征相似度；增加特征相似度。
+- **Data: LAION-5B**：CLIP检索通过将文本查询转换为CLIP嵌入，然后使用该嵌入查询CLIP图像嵌入的k近邻索引来工作。
+- **Zero-shot prompting**：从标签文本创建数据集分类器；用于零样本预测。
+- **Prompt engineering**：文本提示；提示工程很难。
+- **Open-Vocabulary Perception**：开放词汇检测（Zang et al., 2022）；从CLIP中提取免费的密集标签（Zhou et al., 2022）。
+- **3D Understanding and Generation**：通过提示CLIP和GPT进行强大的3D开放世界学习（Zhu et al., 2023）；零样本文本驱动的3D化身生成和动画（Hong et al., 2022）。
+- **Generative Models and Creativity**：基于CLIP潜在向量的分层文本条件图像生成（Ramesh et al.）；文本驱动的StyleGAN图像操纵（Patashnik et al., 2021）；零样本文本驱动的HDR全景图生成（Chen et al., 2022）。
+- **Recap**：历史：视觉和语言模型的演进，以及向视觉语言模型（VLMs）的融合。预训练：双编码器、对比学习、图像 - 文本对。提示：零样本学习、提示工程。应用：开放词汇感知、3D领域、生成式人工智能（GenAI）。
+- **Further reading**：通过跨模态转移进行零样本学习（Socher et al., 2013）；使用文本描述预测深度零样本卷积神经网络（Ba et al., 2015）；从自然语言监督中学习可转移的视觉模型（Radford et al., 2021）；学习为视觉语言模型设计提示（Zhou et al., 2022）。
