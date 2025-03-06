@@ -7,3 +7,18 @@
 //react组件的名字必须是以大写字母开头的，
 //不可以在组件当中定义组件的
 //https://react.docschina.org/learn/importing-and-exporting-components
+//有些根组件可能会声明在其他的文件当中，如果使用的框架是基于文件进行路由的，每一个页面的跟组件都会不一样的
+//默认导出和具名导出，默认导出，一个文件有且仅有一个默认导出，但是可以有任意多个具名导出
+//默认导入的时候，可以在import语句后面进行任意的命名，比如Import Banan from './Button.js
+//获得和默认导出一样的内容，对于具名导入，导入和导出的名字必须是一致的
+import {Profile} from './Gallery.js'
+import Gallery from './Gallery.js';
+import {Profile} from './Gallery.js';
+export default function App() {
+    return (
+        <div>
+            <Gallery />
+            <Profile />
+        </div>
+    )
+}
