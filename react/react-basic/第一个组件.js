@@ -22,3 +22,9 @@ export default function App() {
         </div>
     )
 }
+//使用jsx书写标签语言
+//jsx和react是相互独立的东西，经常一起使用的，可以单独使用他们任意一个，jsx是一种语法的扩展，而react怎是一个javasceipt库
+
+//jsx是javascript语法的扩展，在javascript文件当中书写类似html标签，逻辑越来越决定页面当中的内容，javascript负责html1的内容，渲染逻辑和标签共同存在于同一个地方当中组件
+//react fragment允许你将子元素分组，不会再html结构当中添加额外的节点
+//jsx看起来很像是html，但是在底层其实被转化为了javascript对象，你不能在一个函数当中返回多个对象，
