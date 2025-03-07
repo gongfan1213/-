@@ -28,3 +28,54 @@ export default function App() {
 //jsx是javascript语法的扩展，在javascript文件当中书写类似html标签，逻辑越来越决定页面当中的内容，javascript负责html1的内容，渲染逻辑和标签共同存在于同一个地方当中组件
 //react fragment允许你将子元素分组，不会再html结构当中添加额外的节点
 //jsx看起来很像是html，但是在底层其实被转化为了javascript对象，你不能在一个函数当中返回多个对象，
+//在jsx当中通过大括号使用javascript
+export default function Avatar() {
+
+}
+//把一个字符串属性传递给jsx的时候把他放到单引号或者双引号
+//大括号可以让你直接在标签当中使用javascript
+const today = new Date();
+function formatDate(date) {
+    return new Initl.DateTimeFormat('zh-CN',{weekda:'long'}).format(date);
+
+}
+export default function TodoList() {
+    return (
+        <h1>To Do List for{formatDate(today)}</h1>
+    )
+}
+//jsx当中使用大括号的两种场景
+//用作jsx标签内的文本
+//用作jsx标签内的文本
+// 用作紧跟在= 符号后面的属性，用作紧紧跟在=符号后面的属性
+//在jsx传递对象，对象也用大括号表示的，为了能在jsx当中传递，你必须用另外一个对额外的大括号包裹对象
+//内联样式的时候，给style属性传递一个对象
+//在jsx的内联css样式当中已经见过这种写法了，react不要求你使用内联样式，使用css类就能满足大部分的情况
+//<ul style ={{backgroundColor:'black'}}
+//将多个表达式合并到一个对象当中，
+const person = {
+    name:' gerorio Y.Zara',
+    theme: {
+        backgroundColor:'black',
+        color:'pink'
+    }
+};
+export default function TodoList() {
+    return (
+        <div style = {person.theme}>
+            <h1>{person.name}</h1>
+            <img className="avatar"
+            src = {person.avatarUrl}
+            alt = {person.name}
+            />
+            <ul>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    )
+}
+//jsx是一种模板语言的最小实现，允许你通过javascript来组织数据和逻辑的
+//jsx引号内的值可以作为字符串传递给属性的
+//大括号可以让你将javascript逻辑和变量带入标签当中，
+//在jsx标签当中的内容翦或者紧随属性的=后起作用
