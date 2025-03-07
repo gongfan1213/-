@@ -79,3 +79,160 @@ export default function TodoList() {
 //jsx引号内的值可以作为字符串传递给属性的
 //大括号可以让你将javascript逻辑和变量带入标签当中，
 //在jsx标签当中的内容翦或者紧随属性的=后起作用
+//将 Props 传递给组件
+//props是你传递给jsx标签的信息，className,src,alt,width,height可以是一些传递给img的props
+export default function Profile() {
+    return (
+        <Avatar 
+        person ={{name:'Lin yanying',imageId:'1bX5QH6'}}
+        size={100}
+        />
+
+    );
+}
+export function getImageUrl(perosn,size='s') {
+    return (
+        'https://i.imgur.com/' +
+        person.imageId +
+        size +
+        '.png'
+    )
+}
+import {getImageUrl} from './Avatar.js';
+function Avatar({person,size}) {
+    return (
+        <img
+        className="avatar"
+        src = {getImageUrl(person,size)}
+        alt = {person.name}
+        width ={size}
+        height ={size}
+        />
+    )
+}
+export default function Profile() {
+    return (
+       <div>
+           <Avatar
+           person ={{name:'Lin yanying',imageId:'1bX5QH6'}}
+           size={100}
+           />
+           <Avatar
+           person ={{name:'Lin yanying',imageId:'1bX5QH6'}}
+           size={50}
+           />
+       </div> 
+    )
+}
+//props想象成调整的旋钮，作用和函数的参数相同的，事实上props正是组件的唯一的参数，react组件函数接受一个参数，一个props对象
+//这种语法称为解构，从函数参数当中读取与属性
+function Card({children}) {
+    return (
+        <div className="card">
+            {children}
+        </div>
+    )
+}
+export default function Profile() {
+    return (
+        <Card>
+            <Avatar
+            size = {100}
+            person ={{
+                name:'Katsuko Saruhashi',
+                imageId:'1bX5QH6'
+            }}>
+
+            </Avatar>
+        </Card>
+    )
+}
+function Card({children}) {
+    return (
+        <div className="card">
+            {children}
+        </div>
+    )
+}
+export default function Avatar({person,size}) {
+    return (
+        <img 
+        className="avatar"
+        src = {getImageUrl(person,size)}
+        alt = {person.name}
+        width = {size}
+        height = {size}
+        />
+    )
+}
+//不可以更改props，响应用户输入，可以设置state，state一个组件的内存当中继续了解
+//props是不可以改变的，当一个组件需要改变他的props，响应用户交互或者新的数据，不得不请求他的父组件传递不同的props，一个新的对象，旧的props将被丢弃，
+// 最终js引擎将回收他们占用的内存
+//<Avatar person ={{name:'Lin yanying',imageId:'1bX5QH6'}}/><Avatar {...props}/>jsx展开语法转发所有的props，
+//props是只读的时间酷照，每次渲染都会收到新的版本的props，交互的时候设置state
+function Profile({person,imageSize = 70}){
+    const imageSrc = getImageUrl(person);
+    return (
+        <section className="profile">
+            <h2>{person.name}</h2>
+            <img
+            className="avatar"
+            src = {imageSrc}
+            alt = {person.name}
+            width = {imageSize}
+            height = {imageSize}
+            />
+            <p>{person.bio}</p>
+            <p>
+                <a href = {person.website}>
+                    {person.website}
+                </a>
+            </p>
+        </section>
+    )
+}
+function Profile({person,imageSize=70}){
+    const imageSrc = getImageUrl(person);
+    return (
+        <section className="profile">
+            <h2>{person.name}</h2>
+            <img
+            className="avatar" 
+            src = {imageSrc}
+            alt = {person.name}
+            width = {imageSize}
+            height = {imageSize}
+            />
+            <p>{person.bio}</p>
+            <p>
+                <a href = {person.website}>
+                    {person.website}
+                    </a>
+            </p>
+        </section>
+    )
+}
+export default function Gallery() {
+    return (
+        <div>
+            <Profile person = {{name:'Lin yanying',imageId:'1bX5QH6'}}/>
+            <Profile person = {{name:'Katsuko Saruhashi',imageId:'1bX5QH6'}}/> 
+            <Profile person = {{imageId:'YZara',name:'Y Zara',awards:['Best Picture','Best Actor']}}/>
+        </div>
+    ) 
+}
+//尽管因为你描述组件的特性的时候用的是javascript对象而不是jsx属性，使得语法看起来率有不同，
+function Avatar({person,size}){
+    return (
+        <img className="avatar"
+        src = {getImageUrl(person,size)}
+        alt = {person.name}
+        width = {size
+
+        }
+        height = {size}
+        />
+    )
+}
+//放入组件标签内的任何的jsx都将作为children props传递给该组件
+//放入组件标签内的任何的jsx都将作为children props传递给该组件
