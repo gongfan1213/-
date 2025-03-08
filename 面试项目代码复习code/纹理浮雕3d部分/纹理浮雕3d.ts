@@ -177,6 +177,7 @@ this.cleanup = cleanup;
 this.renderer = renderer;
 this.scene = scene;
    }
+   
 
 }
 
