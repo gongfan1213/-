@@ -121,3 +121,264 @@ export default function FancyText({title,text}) {
 
 //渲染树表示单词渲染当中react组件之间的嵌套的关系
 //渲染树表示单词渲染当中react组件之间的欠他的关系
+// 添加交互
+//组件通常需要根据交互改变屏幕上的内容，在表单输入更新输入栏，这种特定于组件的记忆称为状态，特定于组件的记忆称为状态
+//useState hook你声明一个撞他变量，接受初始状态并且返回一对值，当前状态，以及你让你更新状态的设置函数
+
+export const sculptureList = [
+    {
+        name:'',
+        artist:'',
+        description:'',
+        url:'',
+        alt:''
+    }
+]
+export default function Gallery() {
+    const [index,setIndex] = useState(0);
+    const [showMore,setShowMore] = useState(false);
+    const hasNext = index <sculprureLis.length-1;
+    function handleNextClick() {
+        if(hasNext) {
+            setIndex(index + 1);
+        } else {
+            setIndex(0);
+        }
+    }
+    function handleMoreClick() {
+        setShowMore(!showMore);
+    }
+    let sculpture = sculptureList[index];
+    return (
+       <>
+       <button onClick={handleNextClick}>Next</button>
+       <h1>{sculpture.name}</h1>
+       <img src={sculpture.url} alt={sculpture.alt} />
+       <p>{sculpture.description}</p>
+       {showMore && <p>{sculpture.artist}</p>}
+       </> 
+    )
+}
+//渲染和提交
+//在你的组件显示到名目上子奇爱你，必须有react进行渲染
+//作为快照的状态
+//react的状态的行为更像是一个快照，设置它并不改变你已有的状态变量，而是触发一次重新的渲染，这在一开始可能会让人感到惊讶的
+console.log(count);
+setCount(count+1);
+console.log(count);
+export default function Counter() {
+   const [ to,setTo] = useState('Alice');
+   const[message,setMessage] = useState('');
+   function handleSubmit(e) {
+    e.preventDefault();
+    setTimeout(()=> {
+        alert(`you said ${message} to$[to]`);
+    })
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>
+                <select
+                value = {to}
+                onChange={e=>setTo(e.target.value)}>
+                    <option value='Alice'>
+
+                    </option>
+                    <option value="blob"></option>
+
+                </select>
+            </label>
+            <textarea placeholder="Message"
+            value={message}
+            onChange={e=>setMessage(e.target.value)}>
+                <button type="submit">Send</button>
+            </textarea>
+        </form>
+    )
+   }
+}
+//作为快照的状态解释了微涩么会出现这种情况，设置状态会请求一个新的重新渲染，
+//作为快照的状态皆死了为什么会出现这种情况，设置状态会请求一个新的重新渲染，但是不会在已经运行的代码当中更改它的
+//更新撞他的对象
+//状态可以持有任何类型的javascript值，包括对象，但是你不应该改变你的react当中持有的对象和数组，
+//当你想要更新一个独享和数组的时候你需要创建一个新的对象或者复制现有的对象，用这个副本来更新状态
+//使用。。。展开语法来复制你想要改变的对象和数组
+export default function Form() {
+    const[person,setPerson]=useState({
+        name:'Niki de Saint Phalle',
+        artWorker:{
+            title:'Blue Nana',
+            city:'Hamurg',
+            image:'',
+        }
+    });
+    function handleNameCHnage(e) {
+        setPerson({
+            ...person,
+            name:e.target.value
+        })
+    }
+    function handleTItleChange(e) {
+        setPerson({
+            ...person,
+            artWorker;{
+                ...person.artWork,
+                title:e.target.value
+            }
+        })
+    }
+    function handleCityCHange(e){
+        setPerson({
+            ...person,
+            artWork:{
+                ...person.artWork,
+                city:e.target.value
+            }
+        });
+    }
+    function handleImageChange(e) {
+        setPerson({
+            ...person,
+            artworker:{
+                ...personalbar.artwork,
+                image:e.target.value
+            }
+        });
+    }
+    return (
+        <>
+        <label>
+            <input value={perosn.name}
+            onChange={handleNameChange}/>
+            <input value = {person.artwork.title}
+            onChange={handleTitleCHange}/>
+            <input value={person.artwork.city}
+            onChange={handleCItyChange}/>
+
+        </label>
+        </>
+    )
+}
+export default function Form() {
+    const [person,updateForm] = useImmer({
+        name:'Niki deSaint Phalle',
+        artWork: {
+            title:'blue nana',
+            city:'Hamburg',
+            image:'',
+
+        }
+    });
+    function handleNameChange(e) {
+        updatePerson(draft => {
+            draft.name=e.target.vaue;
+        });
+    }
+    function handleTitleChange(e) {
+        updatePerson(draft=>{
+            draft.artwork.title = e.target.valuel
+        })
+    }
+    function handleCItyCHange(e) {
+        updatePerson(draft => {
+            draft.artwork.city = e.target.value;
+        });
+    }
+    function handleImageChange(e) {
+        updatePersson(draft => {
+            draft.artwork.image = e.target.value;
+        })
+    };
+    return (
+        <>
+        <label>
+            <input value={person.name}onChange={handleNameChange}/>>
+
+        </label>
+        </>
+    )
+}
+//数组是另外一种可以存在状态当中的可变的jaascript对象，应该视为只读额，就像是对象一样的，
+//当你想要更新状态的狮虎，存在状态当中的数组的时候，需要创建一个新的数组，复制向右的数组，用新的数组来更新专改的
+const initialList = [
+    {id:0,titel:'',seen:false},
+
+];
+export default function BucketList() {
+    const [ list,setList] =useState(
+        initialList
+    );
+    function hanldeToggle(artWworkId,nextSeen){
+        setList(list.map(artwork=> {
+            if(artwork.id===artWorkId){
+                return {...artwork,seen:nextSeen}
+            }else{
+                return artwork;
+            }
+        }))
+    }
+    return (
+        <>
+        <h1>Art Bucket List</h1>
+        <ItemList artWorks={listontOOGLE={handleLiST}/>
+        </>
+    )
+}
+function ItemList({artworks,onToggle}){
+    return (
+        <ul>
+        {artworks.map(artworks=> {
+            <li key={artwork.id}>
+                <label>
+                    <input 
+                    type="checkbox"
+                    checked={artwork.seen}
+                    onChange={e=>{
+                        onToggle(artwork.id,e.target.checked);
+                    }}/>
+                    {arwork.title}
+                </label>
+            </li>
+        })}
+        </ul>
+    )
+}
+const initialList =[
+    {id:0,tite:'',see:false};
+    {id:1,title:'Lunar',seen:false};
+];
+export default function BucketList() {
+    const [list,updateList]=useImmer(initialList);
+    function handleTogle(artworkid,nextSeen){
+        updateList(draft=> {
+            const artwork = draft.find(a=>a.id===artWorkId)
+        });
+        artwork.seen=nextSeen;
+    };
+    return (
+        <>
+     <h1>
+        <h1>ArtBucket list</h1>
+        <h2>MyLIst of art to see</h2>
+        <ItemList artworks={list} onToggle={handleToggle}></ItemList>
+        </h1>   
+        </>
+    )
+}
+function ItemList ({artworks,onToogle}){
+    return (
+        <ul>
+        {artworks.map(artwork=> {
+            <li key={artwork.id}>
+                <label>
+                    <input
+                    type="checkbox"
+                    checked={artwork.seen}
+                    onChange={e=>{
+                        onToogle(artWork.id,e.target.checked)
+                    }}
+                </label>
+            </li>
+        })}
+        </ul>
+    )
+}
