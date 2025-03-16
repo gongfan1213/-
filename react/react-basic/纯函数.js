@@ -87,3 +87,37 @@ export default function StoryTray({storeis}) {
 //不应该改变任何用于组件渲染的输入，props,sata,context//
 //保证mutation保持再局部你的渲染函数保持纯粹，你想要更改数组的任一项的时候必须啊先对啊进行拷贝的
 //push,pop,reverse,sort
+export default function InspirationGenerator({children}) {
+    const [index,setIndex] = React.useState(0);
+    const quote = quotes [index];
+    const next = () => {
+        setIndex((index + 1) % quotes.length)
+    }
+    return (
+        <div>
+            <p>{quote}</p>
+            <button onClick={next}>Next</button>
+        </div>
+    )
+}
+
+export default function FancyText({title,text}) {
+    return title?<h1 className='fancy title'>{text}</h1>
+    :<h3 className='fancy'>{text}</h3>
+}
+//react渲染树当中，根节点应该是应用程序的跟组件
+//渲染树仅有react组件构成的，
+//在条件渲染当中，父组件可以根据传递的数据渲染不同的子组件
+//父组件可以根据传递的数据渲染不同的子组件
+//模块依赖书，在react应用当中可以使用树来建模另外一个关系就是应用程序的模块依赖关系，当拆分组件和逻辑盗版戙的文件当中的时候，
+//树的根节点是跟模块，也成为入口摁键，跟组件的模块，
+//构成树的节点代码模块，而不是组件，
+//渲染树仅封装组件
+//随着应用程序的增长，捆绑包的大小通常也会增加，
+//依赖数对于确定运行react应用程序鞥多所需要模块非常有用的，在位生产环境构建react应用程序的时候，通常会有一个构建步骤，该步骤将捆绑所有必要的javascript以供客户端使用的，
+//依赖书对于确定运行react应用程序所需要的模块非常有用，在位生产环境构建react应用程序的时候，通常会有一个构架步骤，该步骤将捆绑所有必要的，该步骤将捆绑所有的javacript来攻客户端使用，负责这次操作的工具称为bundler捆绑器，并且二bunlder将使用一俩书来确定应该包含哪些模块
+//依赖书有助于调试大型捆绑包代码的渲染速度过慢的问题，以及发现把鞋捆绑代码可能被优化
+//构建工具使用依赖书来捆绑必要的代码来部署应用程序
+
+//渲染树表示单词渲染当中react组件之间的嵌套的关系
+//渲染树表示单词渲染当中react组件之间的欠他的关系
